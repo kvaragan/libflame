@@ -205,7 +205,8 @@ void libfla_test_lu_piv_experiment( test_params_t params,
 		time = FLA_Clock() - time;
 		time_min = min( time_min, time );
 	}
-
+	
+#ifndef AMD_ONLY_PERFORMANCE
 	// Perform a linear solve with the result.
 	if ( impl == FLA_TEST_HIER_FRONT_END )
 	{
@@ -213,9 +214,9 @@ void libfla_test_lu_piv_experiment( test_params_t params,
 		FLASH_Obj_flatten( x_test, x );
 	}
 	else
-    {
+	  {
 		FLA_LU_piv_solve( A_test, p_test, b, x );
-	}
+	  }
 
 	// Free the hierarchical matrices if we're testing the FLASH front-end.
 	if ( impl == FLA_TEST_HIER_FRONT_END )
@@ -225,7 +226,7 @@ void libfla_test_lu_piv_experiment( test_params_t params,
 		FLASH_Obj_free( &b_test );
 		FLASH_Obj_free( &x_test );
 	}
-
+#endif
 	// Free the control trees if we're testing the variants.
 	if ( impl == FLA_TEST_FLAT_UNB_VAR ||
 	     impl == FLA_TEST_FLAT_OPT_VAR ||
@@ -236,12 +237,15 @@ void libfla_test_lu_piv_experiment( test_params_t params,
 	*perf = 2.0 / 3.0 * m * m * m / time_min / FLOPS_PER_UNIT_PERF;
 	if ( FLA_Obj_is_complex( A ) ) *perf *= 4.0;
 
+#ifndef AMD_ONLY_PERFORMANCE
 	// Compute the residual.
 	FLA_Gemv_external( FLA_NO_TRANSPOSE,
 	                   FLA_ONE, A_save, x, FLA_MINUS_ONE, b );
 	FLA_Nrm2_external( b, norm );
 	FLA_Obj_extract_real_scalar( norm, residual );
-
+#else
+	*residual = 0.0;
+#endif
 	// Free the supporting flat objects.
 	FLA_Obj_free( &p );
 	FLA_Obj_free( &x );
