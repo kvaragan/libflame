@@ -92,7 +92,7 @@ int main( int argc, char** argv )
 	// Finalize libflame.
 	FLA_Finalize();
 	
-	fprintf(fpDump, "Hello Feeling Great\n");
+	fprintf(fpDump, "\n The function is done...\n");
 	
 	FLA_LOG_UNINITIALIZE();
 

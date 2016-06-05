@@ -14,7 +14,7 @@
 #include "test_libflame.h"
 
 #if FLA_DTL_DUMP_ENABLE
-extern FLS_FAL_FILE* fpDump;
+extern FLA_FAL_FILE* fpDump;
 #endif
 
 #define NUM_PARAM_COMBOS 2
