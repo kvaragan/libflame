@@ -9,6 +9,11 @@
 */
 
 #include "FLAME.h"
+#include "FLA_log.h"
+
+#if FLA_DTL_DUMP_ENABLE
+extern FLA_FAL_FILE* fpDump;
+#endif
 
 extern fla_chol_t* fla_chol_cntl;
 extern fla_chol_t* fla_chol_cntl2;
@@ -16,6 +21,10 @@ extern fla_chol_t* fla_chol_cntl2;
 FLA_Error FLA_Chol( FLA_Uplo uplo, FLA_Obj A )
 {
   FLA_Error r_val;
+
+#if FLA_DTL_DUMP_ENABLE
+  fprintf(fpDump, "%s %s\n", __FILE__, __FUNCTION__);
+#endif
 
   // Check parameters.
   if ( FLA_Check_error_level() >= FLA_MIN_ERROR_CHECKING )

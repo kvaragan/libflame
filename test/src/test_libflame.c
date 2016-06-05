@@ -9,6 +9,7 @@
 */
 
 #include "FLAME.h"
+#include "FLA_log.h"
 
 #include "test_libflame.h"
 
@@ -46,6 +47,10 @@
 #include "test_sylv.h"
 #include "test_lyap.h"
 
+#if FLA_DTL_DUMP_ENABLE
+extern FILE *fpDump;
+#endif /* FLA_DTL_DUMP_ENABLE */
+
 
 // Global variables.
 char libfla_test_binary_name[ MAX_BINARY_NAME_LENGTH + 1 ];
@@ -62,6 +67,9 @@ int main( int argc, char** argv )
 
 	// Initialize libflame.
 	FLA_Init();
+
+	//Initialize log file
+	FLA_LOG_INITIALIZE();
 
 	// Initialize some strings.
 	libfla_test_init_strings();
@@ -83,6 +91,10 @@ int main( int argc, char** argv )
 
 	// Finalize libflame.
 	FLA_Finalize();
+	
+	fprintf(fpDump, "Hello Feeling Great\n");
+	
+	FLA_LOG_UNINITIALIZE();
 
 	// Return peacefully.
 	return 0;

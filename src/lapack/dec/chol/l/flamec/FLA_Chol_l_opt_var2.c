@@ -9,6 +9,12 @@
 */
 
 #include "FLAME.h"
+#include "FLA_log.h"
+
+#if FLA_DTL_DUMP_ENABLE
+extern FLA_FAL_FILE* fpDump;
+#endif
+
 
 FLA_Error FLA_Chol_l_opt_var2( FLA_Obj A )
 {
@@ -22,7 +28,10 @@ FLA_Error FLA_Chol_l_opt_var2( FLA_Obj A )
   mn_A     = FLA_Obj_length( A );
   rs_A     = FLA_Obj_row_stride( A );
   cs_A     = FLA_Obj_col_stride( A );
-  
+
+#if FLA_DTL_DUMP_ENABLE
+  fprintf(fpDump, "%s %s (Cholesky using Level-1 & 2 BLAS)\n", __FILE__, __func__);
+#endif
 
   switch ( datatype )
   {

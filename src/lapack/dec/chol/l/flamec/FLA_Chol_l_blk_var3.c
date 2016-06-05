@@ -9,6 +9,11 @@
 */
 
 #include "FLAME.h"
+#include "FLA_log.h"
+
+#if FLA_DTL_DUMP_ENABLE
+extern FLA_FAL_FILE* fpDump;
+#endif
 
 FLA_Error FLA_Chol_l_blk_var3( FLA_Obj A, fla_chol_t* cntl )
 {
@@ -19,6 +24,11 @@ FLA_Error FLA_Chol_l_blk_var3( FLA_Obj A, fla_chol_t* cntl )
   dim_t b;
 
   int r_val = FLA_SUCCESS;
+
+#if FLA_DTL_DUMP_ENABLE
+	fprintf(fpDump,"%s %s\n", __FILE__,__func__);
+#endif
+
 
   FLA_Part_2x2( A,    &ATL, &ATR,
                       &ABL, &ABR,     0, 0, FLA_TL );

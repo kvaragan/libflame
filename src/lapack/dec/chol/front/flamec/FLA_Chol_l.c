@@ -13,6 +13,12 @@
 FLA_Error FLA_Chol_l( FLA_Obj A, fla_chol_t* cntl )
 {
 	FLA_Error r_val = FLA_SUCCESS;
+
+#if FLA_DTL_DUMP_ENABLE
+	fprintf(fpDump,"%s %s\n", __FILE__,__func__);
+	fprintf(fpDump,"A (%d x %d) - cs = %d, rs = %d\n", A.m, A.n, A.base->cs, A.base->rs);
+#endif
+
 	
 	if      ( FLA_Cntl_variant( cntl ) == FLA_BLOCKED_EXTERN )
 	{

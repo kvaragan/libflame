@@ -9,7 +9,13 @@
 */
 
 #include "FLAME.h"
+#include "FLA_log.h"
+
 #include "test_libflame.h"
+
+#if FLA_DTL_DUMP_ENABLE
+extern FLS_FAL_FILE* fpDump;
+#endif
 
 #define NUM_PARAM_COMBOS 2
 #define NUM_MATRIX_ARGS  1
@@ -181,6 +187,10 @@ void libfla_test_chol_experiment( test_params_t params,
 	{
 		A_test = A;
 	}
+#if FLA_DTL_DUMP_ENABLE
+	fprintf(fpDump, "Cholesky Factorization of A (%d x %d)\n", A.m, A.n);
+        fprintf(fpDump, "col stride = %d, row stride = %d\n", A.base->cs, A.base->rs);
+#endif
 
 	// Create a control tree for the individual variants.
 	if ( impl == FLA_TEST_FLAT_UNB_VAR ||

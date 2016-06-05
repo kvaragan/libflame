@@ -9,6 +9,12 @@
 */
 
 #include "FLAME.h"
+#include "FLA_log.h"
+
+#if FLA_DTL_DUMP_ENABLE
+extern FLA_FAL_FILE* fpDump;
+#endif
+
 
 extern fla_trsm_t* flash_trsm_cntl_blas;
 extern fla_trsm_t* flash_trsm_cntl_mm;
@@ -19,6 +25,11 @@ FLA_Error FLA_Trsm_internal( FLA_Side side, FLA_Uplo uplo, FLA_Trans transa, FLA
 
 	if ( FLA_Check_error_level() == FLA_FULL_ERROR_CHECKING )
 		FLA_Trsm_internal_check( side, uplo, transa, diag, alpha, A, B, cntl );
+
+#if FLA_DTL_DUMP_ENABLE
+	fprintf(fpDump,"%s %s\n", __FILE__,__func__);
+#endif
+
 
 	if      ( FLA_Cntl_matrix_type( cntl ) == FLA_HIER &&
 	          FLA_Obj_elemtype( A ) == FLA_MATRIX &&
