@@ -9,6 +9,12 @@
 */
 
 #include "FLAME.h"
+#include "FLA_log.h"
+
+#if FLA_DTL_DUMP_ENABLE
+extern FLA_FAL_FILE* fpDump;
+#endif
+
 
 FLA_Error FLA_Herk_external( FLA_Uplo uplo, FLA_Trans trans, FLA_Obj alpha, FLA_Obj A, FLA_Obj beta, FLA_Obj C )
 {
@@ -20,6 +26,14 @@ FLA_Error FLA_Herk_external( FLA_Uplo uplo, FLA_Trans trans, FLA_Obj alpha, FLA_
   int          rs_C, cs_C;
   uplo1_t       blis_uplo; 
   trans1_t      blis_trans;
+  
+  #if FLA_DTL_DUMP_ENABLE
+	fprintf(fpDump,"%s %s ***Start--\n", __FILE__, __func__);
+	fprintf(fpDump, "A22 = A22 - A21 * A21' (syrk)");
+	fprintf(fpDump, "A21 (%d x %d)\t ",A.m, A.n );
+	fprintf(fpDump, "A22 (%d x %d)\n ",C.m, C.n );
+#endif
+
 
   if ( FLA_Check_error_level() == FLA_FULL_ERROR_CHECKING ) 
     FLA_Herk_check( uplo, trans, alpha, A, beta, C );
@@ -131,6 +145,10 @@ FLA_Error FLA_Herk_external( FLA_Uplo uplo, FLA_Trans trans, FLA_Obj alpha, FLA_
   }
 
   }
+  
+#if FLA_DTL_DUMP_ENABLE
+	fprintf(fpDump,"%s %s ***End--\n", __FILE__, __func__);
+#endif
  
   return FLA_SUCCESS;
 }

@@ -9,6 +9,12 @@
 */
 
 #include "FLAME.h"
+#include "FLA_log.h"
+
+#if FLA_DTL_DUMP_ENABLE
+extern FLA_FAL_FILE* fpDump;
+#endif
+
 
 FLA_Error FLA_Trsm_external( FLA_Side side, FLA_Uplo uplo, FLA_Trans trans, FLA_Diag diag, FLA_Obj alpha, FLA_Obj A, FLA_Obj B )
 {
@@ -21,6 +27,13 @@ FLA_Error FLA_Trsm_external( FLA_Side side, FLA_Uplo uplo, FLA_Trans trans, FLA_
   trans1_t      blis_trans;
   diag1_t       blis_diag;
 
+#if FLA_DTL_DUMP_ENABLE
+	fprintf(fpDump,"%s %s ***Start--\n", __FILE__, __func__);
+	fprintf(fpDump, "A21 = A21 * inv( tril( A11 )' )");
+	fprintf(fpDump, "A11 (%d x %d)\t ",A.m, A.n );
+	fprintf(fpDump, "A21 (%d x %d)\n ",B.m, B.n );
+#endif
+  
   if ( FLA_Check_error_level() == FLA_FULL_ERROR_CHECKING ) 
     FLA_Trsm_check( side, uplo, trans, diag, alpha, A, B );
 
@@ -122,7 +135,9 @@ FLA_Error FLA_Trsm_external( FLA_Side side, FLA_Uplo uplo, FLA_Trans trans, FLA_
   }
 
   }
-
+#if FLA_DTL_DUMP_ENABLE
+	fprintf(fpDump,"%s %s ***End--\n", __FILE__, __func__);
+#endif
   return FLA_SUCCESS;
 }
 

@@ -33,6 +33,9 @@ FLA_Error FLA_Chol( FLA_Uplo uplo, FLA_Obj A )
   // Invoke FLA_Chol_internal() with the appropriate control tree.
   r_val = FLA_Chol_internal( uplo, A, fla_chol_cntl2 );
   //r_val = FLA_Chol_internal( uplo, A, fla_chol_cntl );
+#if FLA_DTL_DUMP_ENABLE
+  fprintf(fpDump, "%s %s End\n", __FILE__, __FUNCTION__);
+#endif
 
   return r_val;
 }

@@ -9,6 +9,12 @@
 */
 
 #include "blis1.h"
+#include "FLA_log.h"
+
+#if FLA_DTL_DUMP_ENABLE
+extern FLA_FAL_FILE* fpDump;
+#endif
+
 
 void bl1_sgemv( trans1_t transa, conj1_t conjx, int m, int n, float* alpha, float* a, int a_rs, int a_cs, float* x, int incx, float* beta, float* y, int incy )
 {
@@ -17,6 +23,10 @@ void bl1_sgemv( trans1_t transa, conj1_t conjx, int m, int n, float* alpha, floa
 	int       a_cs_save = a_cs;
 	int       lda, inca;
 
+#if FLA_DTL_DUMP_ENABLE
+  fprintf(fpDump, "%s %s Start...\n", __FILE__, __func__);
+#endif
+
 	// Return early if possible.
 	if ( bl1_zero_dim2( m, n ) )
 	{
@@ -24,6 +34,10 @@ void bl1_sgemv( trans1_t transa, conj1_t conjx, int m, int n, float* alpha, floa
 
 		if ( bl1_does_trans( transa ) ) n_elem = n;
 		else                            n_elem = m;
+
+#if FLA_DTL_DUMP_ENABLE
+  fprintf(fpDump, "bl1_sscalv- dims (%d )\n", n_elem);
+#endif
 
 		bl1_sscalv( BLIS1_NO_CONJUGATE,
 		            n_elem,
@@ -51,6 +65,9 @@ void bl1_sgemv( trans1_t transa, conj1_t conjx, int m, int n, float* alpha, floa
 		bl1_swap_ints( lda, inca );
 		bl1_toggle_trans( transa );
 	}
+#if FLA_DTL_DUMP_ENABLE
+  fprintf(fpDump, "bl1_sgemv_blas - dims (%d x %d)\n", m, n);
+#endif
 
 	bl1_sgemv_blas( transa,
 	                m,
@@ -64,6 +81,10 @@ void bl1_sgemv( trans1_t transa, conj1_t conjx, int m, int n, float* alpha, floa
 	// Free the temporary contiguous matrix.
 	bl1_sfree_contigm( a_save, a_rs_save, a_cs_save,
 	                   &a,     &a_rs,     &a_cs );
+					   
+#if FLA_DTL_DUMP_ENABLE
+  fprintf(fpDump, "%s %s End...\n", __FILE__, __func__);
+#endif
 }
 
 void bl1_dgemv( trans1_t transa, conj1_t conjx, int m, int n, double* alpha, double* a, int a_rs, int a_cs, double* x, int incx, double* beta, double* y, int incy )

@@ -9,6 +9,11 @@
 */
 
 #include "FLAME.h"
+#include "FLA_log.h"
+
+#if FLA_DTL_DUMP_ENABLE
+extern FLA_FAL_FILE* fpDump;
+#endif
 
 FLA_Error FLA_Chol_l( FLA_Obj A, fla_chol_t* cntl )
 {
@@ -19,7 +24,6 @@ FLA_Error FLA_Chol_l( FLA_Obj A, fla_chol_t* cntl )
 	fprintf(fpDump,"A (%d x %d) - cs = %d, rs = %d\n", A.m, A.n, A.base->cs, A.base->rs);
 #endif
 
-	
 	if      ( FLA_Cntl_variant( cntl ) == FLA_BLOCKED_EXTERN )
 	{
 		r_val = FLA_Chol_l_blk_ext( A );
@@ -74,6 +78,10 @@ FLA_Error FLA_Chol_l( FLA_Obj A, fla_chol_t* cntl )
 	{
 		FLA_Check_error_code( FLA_NOT_YET_IMPLEMENTED );
 	}
+	
+#if FLA_DTL_DUMP_ENABLE
+	fprintf(fpDump,"%s %s End...\n", __FILE__,__func__);
+#endif
 
 	return r_val;
 }

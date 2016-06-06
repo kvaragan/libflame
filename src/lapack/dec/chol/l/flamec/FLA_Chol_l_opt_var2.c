@@ -30,7 +30,7 @@ FLA_Error FLA_Chol_l_opt_var2( FLA_Obj A )
   cs_A     = FLA_Obj_col_stride( A );
 
 #if FLA_DTL_DUMP_ENABLE
-  fprintf(fpDump, "%s %s (Cholesky using Level-1 & 2 BLAS)\n", __FILE__, __func__);
+  fprintf(fpDump, "%s %s (Cholesky using Level-1 & 2 BLAS)-Start...\n", __FILE__, __func__);
 #endif
 
   switch ( datatype )
@@ -75,6 +75,10 @@ FLA_Error FLA_Chol_l_opt_var2( FLA_Obj A )
       break;
     }
   }
+  
+#if FLA_DTL_DUMP_ENABLE
+  fprintf(fpDump, "%s %s (Cholesky using Level-1 & 2 BLAS)-End...\n", __FILE__, __func__);
+#endif
 
   return r_val;
 }
@@ -88,6 +92,10 @@ FLA_Error FLA_Chol_l_ops_var2( int mn_A,
   float*    buff_m1 = FLA_FLOAT_PTR( FLA_MINUS_ONE );
   int       i;
   FLA_Error e_val;
+  
+#if FLA_DTL_DUMP_ENABLE
+  fprintf(fpDump, "%s %s Start...\n", __FILE__, __func__);
+#endif
 
   for ( i = 0; i < mn_A; ++i )
   {
@@ -100,6 +108,9 @@ FLA_Error FLA_Chol_l_ops_var2( int mn_A,
     int       mn_behind = i;
 
     /*------------------------------------------------------------*/
+#if FLA_DTL_DUMP_ENABLE
+  fprintf(fpDump, "bl1_sdots - vector length = %d \n", mn_behind);
+#endif
 
     // FLA_Dotcs_external( FLA_CONJUGATE, FLA_MINUS_ONE, a10t, a10t, FLA_ONE, alpha11 );
     bl1_sdots( BLIS1_CONJUGATE,
@@ -110,6 +121,9 @@ FLA_Error FLA_Chol_l_ops_var2( int mn_A,
                buff_1,
                alpha11 );
 
+#if FLA_DTL_DUMP_ENABLE
+  fprintf(fpDump, "bl1_sgemv - dims(%d x %d)\n", mn_ahead, mn_behind);
+#endif
     // FLA_Gemvc_external( FLA_NO_TRANSPOSE, FLA_CONJUGATE, FLA_MINUS_ONE, A20, a10t, FLA_ONE, a21 );
     bl1_sgemv( BLIS1_NO_TRANSPOSE,
                BLIS1_CONJUGATE,
@@ -127,6 +141,10 @@ FLA_Error FLA_Chol_l_ops_var2( int mn_A,
     bl1_ssqrte( alpha11, &e_val );
     if ( e_val != FLA_SUCCESS ) return mn_behind;
 
+#if FLA_DTL_DUMP_ENABLE
+  fprintf(fpDump, "bl1_sinvscalv - dims(%d )\n", mn_ahead);
+#endif
+
     // FLA_Inv_scal_external( alpha11, a21 );
     bl1_sinvscalv( BLIS1_NO_CONJUGATE,
                    mn_ahead,
@@ -134,8 +152,11 @@ FLA_Error FLA_Chol_l_ops_var2( int mn_A,
                    a21, rs_A );
 
     /*------------------------------------------------------------*/
-
   }
+
+#if FLA_DTL_DUMP_ENABLE
+  fprintf(fpDump, "%s %s End...\n", __FILE__, __func__);
+#endif
 
   return FLA_SUCCESS;
 }

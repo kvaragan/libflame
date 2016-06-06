@@ -26,7 +26,7 @@ FLA_Error FLA_Chol_internal( FLA_Uplo uplo, FLA_Obj A, fla_chol_t* cntl )
 		FLA_Chol_internal_check( uplo, A, cntl );
 
 #if FLA_DTL_DUMP_ENABLE
-	fprintf(fpDump,"%s %s\n", __FILE__,__func__);
+	fprintf(fpDump,"%s %s Start...\n", __FILE__,__func__);
 	fprintf(fpDump,"A (%d x %d) - cs = %d, rs = %d\n", A.m, A.n, A.base->cs, A.base->rs);
 #endif
 
@@ -66,6 +66,10 @@ FLA_Error FLA_Chol_internal( FLA_Uplo uplo, FLA_Obj A, fla_chol_t* cntl )
 			r_val = FLA_Chol_u( A, cntl );
 		}
 	}
+	
+#if FLA_DTL_DUMP_ENABLE
+	fprintf(fpDump,"%s %s End...\n", __FILE__,__func__);
+#endif
 
 	return r_val;
 }

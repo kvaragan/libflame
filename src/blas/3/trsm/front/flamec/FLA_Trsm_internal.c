@@ -27,7 +27,7 @@ FLA_Error FLA_Trsm_internal( FLA_Side side, FLA_Uplo uplo, FLA_Trans transa, FLA
 		FLA_Trsm_internal_check( side, uplo, transa, diag, alpha, A, B, cntl );
 
 #if FLA_DTL_DUMP_ENABLE
-	fprintf(fpDump,"%s %s\n", __FILE__,__func__);
+	fprintf(fpDump,"%s %s ***Start\n", __FILE__,__func__);
 #endif
 
 
@@ -114,6 +114,9 @@ FLA_Error FLA_Trsm_internal( FLA_Side side, FLA_Uplo uplo, FLA_Trans transa, FLA
 			}
 		}
 	}
+#if FLA_DTL_DUMP_ENABLE
+	fprintf(fpDump,"%s %s ***End\n", __FILE__,__func__);
+#endif
 
 	return r_val;
 }
