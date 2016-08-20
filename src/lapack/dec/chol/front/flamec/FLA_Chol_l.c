@@ -30,7 +30,10 @@ FLA_Error FLA_Chol_l( FLA_Obj A, fla_chol_t* cntl )
 #endif
 	else if ( FLA_Cntl_variant( cntl ) == FLA_UNB_OPT_VARIANT2 )
 	{
+#ifndef COMMENT_L1_L2
+	 
 		r_val = FLA_Chol_l_opt_var2( A );
+#endif
 	}
 	else if ( FLA_Cntl_variant( cntl ) == FLA_UNB_OPT_VARIANT3 )
 	{

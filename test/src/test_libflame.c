@@ -1200,7 +1200,8 @@ void libfla_test_op_driver( char*         func_str,
 				for ( p_cur = p_first; p_cur <= p_max; p_cur += p_inc )
 				{
 					// Loop over the operation's parameter combinations.
-					for ( pci = 0; pci < n_pc; ++pci )	
+					//for ( pci = 0; pci < n_pc; ++pci )	
+				  for ( pci = 0; pci < 1; ++pci ) //only Lower trangular is done
 					{
 						f_exp( params,
 						       var,

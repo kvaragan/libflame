@@ -91,7 +91,9 @@ FLA_Error FLA_LU_piv_internal( FLA_Obj A, FLA_Obj p, fla_lu_t* cntl )
 		}
 		else if ( FLA_Cntl_variant( cntl ) == FLA_UNB_OPT_VARIANT4 )
 		{
+#ifndef COMMENT_L1_L2_K
 			r_val = FLA_LU_piv_opt_var4( A, p );
+#endif
 		}
 #endif
 		else if ( FLA_Cntl_variant( cntl ) == FLA_UNB_OPT_VARIANT5 )

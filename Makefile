@@ -228,7 +228,7 @@ MK_HEADER_DIR_PATHS += $(BASE_CONFIG_DIR)
 # Add -I to each header path so we can specify our include search paths to the
 # C and Fortran compilers.
 INCLUDE_PATHS   := $(strip $(patsubst %, -I%, $(MK_HEADER_DIR_PATHS)))
-CFLAGS          := $(CFLAGS) $(INCLUDE_PATHS)
+CFLAGS          := $(CFLAGS) $(INCLUDE_PATHS) -DCOMMENT_L1_L2
 CFLAGS_NOOPT    := $(CFLAGS_NOOPT) $(INCLUDE_PATHS)
 CPPFLAGS        := $(CPPFLAGS) $(INCLUDE_PATHS)
 FFLAGS          := $(FFLAGS) $(INCLUDE_PATHS)

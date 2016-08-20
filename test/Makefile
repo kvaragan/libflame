@@ -70,7 +70,7 @@ FLA_LIB_PATH   := $(INSTALL_PREFIX)/lib
 FLA_INC_PATH   := $(INSTALL_PREFIX)/include
 LIBFLAME       := $(FLA_LIB_PATH)/libflame.a
 
-CFLAGS         += -I$(FLA_INC_PATH) -I$(TEST_SRC_PATH) 
+CFLAGS         += -I$(FLA_INC_PATH) -I$(TEST_SRC_PATH) -DAMD_ONLY_PERFORMANCE
 
 FNAME          := libflame
 

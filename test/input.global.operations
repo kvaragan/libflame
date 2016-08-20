@@ -1,8 +1,8 @@
 0   General matrix-matrix multiply                (0 = disable all; 1 = specify)
 0     - FLASH front-end                           (0 = disable; 1 = enable)
-0     - FLA front-end                             (0 = disable; 1 = enable)
-0     - FLA unblocked variants                    (0 = disable; 1 = enable)
-0     - FLA blocked variants                      (0 = disable; 1 = enable)
+1     - FLA front-end                             (0 = disable; 1 = enable)
+1     - FLA unblocked variants                    (0 = disable; 1 = enable)
+1     - FLA blocked variants                      (0 = disable; 1 = enable)
 1     - FLA external                              (0 = disable; 1 = enable)
 
 0   Hermitian matrix-matrix multiply              (0 = disable all; 1 = specify)
@@ -61,7 +61,7 @@
 0     - FLA blocked variants                      (0 = disable; 1 = enable)
 1     - FLA external                              (0 = disable; 1 = enable)
 
-0   Cholesky factorization                        (0 = disable all; 1 = specify)
+1   Cholesky factorization                        (0 = disable all; 1 = specify)
 0     - FLASH front-end                           (0 = disable; 1 = enable)
 1     - FLA front-end                             (0 = disable; 1 = enable)
 0     - FLA unblocked variants                    (0 = disable; 1 = enable)
@@ -85,7 +85,7 @@
 0   LU factorization (incremental pivoting)       (0 = disable all; 1 = specify)
 1     - FLASH front-end                           (0 = disable; 1 = enable)
 
-1   QR factorization via UT transform             (0 = disable all; 1 = specify)
+0   QR factorization via UT transform             (0 = disable all; 1 = specify)
 0     - FLASH front-end                           (0 = disable; 1 = enable)
 1     - FLA front-end                             (0 = disable; 1 = enable)
 0     - FLA unblocked variants                    (0 = disable; 1 = enable)

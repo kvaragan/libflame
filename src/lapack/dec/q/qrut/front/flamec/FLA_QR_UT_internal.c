@@ -55,7 +55,9 @@ FLA_Error FLA_QR_UT_internal( FLA_Obj A, FLA_Obj T, fla_qrut_t* cntl )
 		}
 		else if ( FLA_Cntl_variant( cntl ) == FLA_UNB_OPT_VARIANT2 )
 		{
+#ifndef COMMENT_L1_L2
 			r_val = FLA_QR_UT_opt_var2( A, T );
+#endif
 		}
 		else if ( FLA_Cntl_variant( cntl ) == FLA_BLOCKED_VARIANT2 )
 		{
