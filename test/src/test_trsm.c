@@ -270,6 +270,7 @@ void libfla_test_trsm_experiment( test_params_t params,
 		*perf = ( 1 * m * n * n ) / time_min / FLOPS_PER_UNIT_PERF;
 	if ( FLA_Obj_is_complex( A ) ) *perf *= 4.0;
 
+#ifndef AMD_ONLY_PERFORMANCE
 	// Compute:
 	//   y = B * x
 	// and compare to
@@ -293,7 +294,9 @@ void libfla_test_trsm_experiment( test_params_t params,
 	//FLA_Nrm2_external( z, norm );
 	//FLA_Obj_extract_real_scalar( norm, residual );
 	*residual = FLA_Max_elemwise_diff( y, z );
-
+#else
+	*residual = 0.0;
+#endif
 	// Free the supporting flat objects.
 	FLA_Obj_free( &B_save );
 

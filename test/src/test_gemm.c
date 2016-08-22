@@ -236,7 +236,7 @@ void libfla_test_gemm_experiment( test_params_t params,
 		FLASH_Obj_flatten( C_test, C );
 	}
 	else
-    {
+	  {
 		// No action needed since C_test and C refer to the same object.
 	}
 
@@ -260,6 +260,7 @@ void libfla_test_gemm_experiment( test_params_t params,
 	*perf = ( 2 * m * k * n ) / time_min / FLOPS_PER_UNIT_PERF;
 	if ( FLA_Obj_is_complex( A ) ) *perf *= 4.0;
 
+#ifndef AMD_ONLY_PERFORMANCE
 	// Compute:
 	//   y = C * x
 	// and compare to
@@ -275,6 +276,9 @@ void libfla_test_gemm_experiment( test_params_t params,
 	//FLA_Nrm2_external( z, norm );
 	//FLA_Obj_extract_real_scalar( norm, residual );
 	*residual = FLA_Max_elemwise_diff( y, z );
+#else
+	*residual = 0.0;
+#endif
 
 	// Free the supporting flat objects.
 	FLA_Obj_free( &C_save );
