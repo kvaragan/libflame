@@ -49,7 +49,9 @@ LDFLAGS          := -lm
 LIBBLAS_PATH   := $(INSTALL_PREFIX)/lib
 #LIBBLAS        := $(LIBBLAS_PATH)/libblas.a
 #LIBBLAS        := $(LIBBLAS_PATH)/libgoto.a
-LIBBLAS        := $(HOME)/blis/lib/libblis.a
+#LIBBLAS        := $(HOME)/blis/lib/libblis.a
+#LIBBLAS       := $(HOME)/libs/blistrsmpubRepoTrsmOpt/lib/libblis.a # with TRSM only opt
+LIBBLAS       := $(HOME)/libs/blistrsmMacroOpt/lib/libblis.a
 
 # LAPACK implementation path. These values only matter if libflame was
 # configured with the external-lapack-interfaces option enabled. Modify
@@ -70,7 +72,7 @@ FLA_LIB_PATH   := $(INSTALL_PREFIX)/lib
 FLA_INC_PATH   := $(INSTALL_PREFIX)/include
 LIBFLAME       := $(FLA_LIB_PATH)/libflame.a
 
-CFLAGS         += -I$(FLA_INC_PATH) -I$(TEST_SRC_PATH) -DAMD_ONLY_PERFORMANCE
+CFLAGS         += -I$(FLA_INC_PATH) -I$(TEST_SRC_PATH) #-DAMD_ONLY_PERFORMANCE
 
 FNAME          := libflame
 
