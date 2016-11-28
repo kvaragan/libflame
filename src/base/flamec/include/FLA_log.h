@@ -13,9 +13,11 @@
 
 /* Macro for dumping the log. if the user wants to enable dumping make this macro to 1 else 0 */
 #define FLA_DTL_DUMP_ENABLE          1
+#define FLA_DTL_CSV_ENABLE           1
 
 
 #define FLA_DTL_DUMP_FILE  "dtldump.wri"
+#define FLA_DTL_CSV_FILE   "dtlmetrics.csv"
 
 /* The user can use below three macros for different data type to dump data
 * or specify the size of data type in bytes macro for character data type */

@@ -49,7 +49,7 @@ LDFLAGS        := -lm
 LIBBLAS_PATH   := $(INSTALL_PREFIX)/lib
 #LIBBLAS        := $(LIBBLAS_PATH)/libblas.a
 #LIBBLAS        := $(LIBBLAS_PATH)/libopenblas.a
-LIBBLAS        := $(HOME)/blis/debug/lib/libblis.a
+LIBBLAS        := $(HOME)/blis/lib/libblis.a
 
 # LAPACK implementation path. These values only matter if libflame was
 # configured with the external-lapack-interfaces option enabled. Modify
