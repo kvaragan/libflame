@@ -27,6 +27,7 @@ void bl1_strsm( side1_t side, uplo1_t uplo, trans1_t trans, diag1_t diag, int m,
 	// Return early if possible.
 	if ( bl1_zero_dim2( m, n ) ) return;
 
+#ifndef AMD_MEM_OPT
 	// If necessary, allocate, initialize, and use a temporary contiguous
 	// copy of each matrix rather than the original matrices.
 	bl1_set_dim_with_side( side, m, n, &dim_a );
@@ -40,7 +41,7 @@ void bl1_strsm( side1_t side, uplo1_t uplo, trans1_t trans, diag1_t diag, int m,
 	                     n,
 	                     b_save, b_rs_save, b_cs_save,
 	                     &b,     &b_rs,     &b_cs );
-
+#endif
 	// Initialize with values assuming column-major storage.
 	lda  = a_cs;
 	inca = a_rs;
@@ -101,7 +102,7 @@ void bl1_strsm( side1_t side, uplo1_t uplo, trans1_t trans, diag1_t diag, int m,
 	                alpha,
 	                a, lda,
 	                b, ldb );
-
+#ifndef AMD_MEM_OPT
 	// Free any temporary contiguous matrices, copying the result back to
 	// the original matrix.
 	bl1_sfree_contigm( a_save, a_rs_save, a_cs_save,
@@ -111,6 +112,7 @@ void bl1_strsm( side1_t side, uplo1_t uplo, trans1_t trans, diag1_t diag, int m,
 	                         n_save,
 	                         b_save, b_rs_save, b_cs_save,
 	                         &b,     &b_rs,     &b_cs );
+#endif
 }
 
 void bl1_dtrsm( side1_t side, uplo1_t uplo, trans1_t trans, diag1_t diag, int m, int n, double* alpha, double* a, int a_rs, int a_cs, double* b, int b_rs, int b_cs )
@@ -130,9 +132,12 @@ void bl1_dtrsm( side1_t side, uplo1_t uplo, trans1_t trans, diag1_t diag, int m,
 	// Return early if possible.
 	if ( bl1_zero_dim2( m, n ) ) return;
 
+
 	// If necessary, allocate, initialize, and use a temporary contiguous
 	// copy of each matrix rather than the original matrices.
 	bl1_set_dim_with_side( side, m, n, &dim_a );
+
+#ifndef AMD_MEM_OPT
 	bl1_dcreate_contigmr( uplo,
 	                      dim_a,
 	                      dim_a,
@@ -143,7 +148,7 @@ void bl1_dtrsm( side1_t side, uplo1_t uplo, trans1_t trans, diag1_t diag, int m,
 	                     n,
 	                     b_save, b_rs_save, b_cs_save,
 	                     &b,     &b_rs,     &b_cs );
-
+#endif
 	// Initialize with values assuming column-major storage.
 	lda  = a_cs;
 	inca = a_rs;
@@ -205,6 +210,7 @@ void bl1_dtrsm( side1_t side, uplo1_t uplo, trans1_t trans, diag1_t diag, int m,
 	                a, lda,
 	                b, ldb );
 
+#ifndef AMD_MEM_OPT
 	// Free any temporary contiguous matrices, copying the result back to
 	// the original matrix.
 	bl1_dfree_contigm( a_save, a_rs_save, a_cs_save,
@@ -214,6 +220,7 @@ void bl1_dtrsm( side1_t side, uplo1_t uplo, trans1_t trans, diag1_t diag, int m,
 	                         n_save,
 	                         b_save, b_rs_save, b_cs_save,
 	                         &b,     &b_rs,     &b_cs );
+#endif
 }
 
 void bl1_ctrsm( side1_t side, uplo1_t uplo, trans1_t trans, diag1_t diag, int m, int n, scomplex* alpha, scomplex* a, int a_rs, int a_cs, scomplex* b, int b_rs, int b_cs )

@@ -10,6 +10,14 @@
 
 #include "FLAME.h"
 
+#ifdef FLA_AMD_OPT
+FLA_Error FLA_Chol_l_unb_var1_Small (FLA_Obj A);
+FLA_Error FLA_Chol_l_unb_var1_Small_ops( int mn_A,
+                                         float* A, int rs_A, int cs_A );
+FLA_Error FLA_Chol_l_unb_var1_Small_opd( int mn_A,
+                                         double* A, int rs_A, int cs_A );
+#endif
+
 FLA_Error FLA_Chol_l_blk_var1( FLA_Obj A, fla_chol_t* cntl );
 FLA_Error FLA_Chol_l_blk_var2( FLA_Obj A, fla_chol_t* cntl );
 FLA_Error FLA_Chol_l_blk_var3( FLA_Obj A, fla_chol_t* cntl );

@@ -64,6 +64,12 @@ FLA_Error FLA_Chol_l( FLA_Obj A, fla_chol_t* cntl )
 		r_val = FLA_Chol_l_unb_var3( A );
 	}
 #endif
+#ifdef FLA_AMD_OPT
+	else if ( FLA_Cntl_variant( cntl ) == FLA_UNBLOCKED_VARIANT_SMALL )
+	{
+			r_val = FLA_Chol_l_unb_var1_Small( A );
+	}
+#endif
 	else
 	{
 		FLA_Check_error_code( FLA_NOT_YET_IMPLEMENTED );

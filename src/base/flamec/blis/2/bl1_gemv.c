@@ -31,13 +31,14 @@ void bl1_sgemv( trans1_t transa, conj1_t conjx, int m, int n, float* alpha, floa
 		            y, incy );
 		return;
 	}
-
+#ifndef AMD_MEM_OPT
 	// If necessary, allocate, initialize, and use a temporary contiguous
 	// copy of the matrix rather than the original matrix.
 	bl1_screate_contigm( m,
 	                     n,
 	                     a_save, a_rs_save, a_cs_save,
 	                     &a,     &a_rs,     &a_cs );
+#endif
 
 	// Initialize with values assuming column-major storage.
 	lda  = a_cs;
@@ -61,9 +62,11 @@ void bl1_sgemv( trans1_t transa, conj1_t conjx, int m, int n, float* alpha, floa
 	                beta,
 	                y, incy );
 
+#ifndef AMD_MEM_OPT
 	// Free the temporary contiguous matrix.
 	bl1_sfree_contigm( a_save, a_rs_save, a_cs_save,
 	                   &a,     &a_rs,     &a_cs );
+#endif
 }
 
 void bl1_dgemv( trans1_t transa, conj1_t conjx, int m, int n, double* alpha, double* a, int a_rs, int a_cs, double* x, int incx, double* beta, double* y, int incy )
@@ -87,13 +90,14 @@ void bl1_dgemv( trans1_t transa, conj1_t conjx, int m, int n, double* alpha, dou
 		            y, incy );
 		return;
 	}
-
+#ifndef AMD_MEM_OPT
 	// If necessary, allocate, initialize, and use a temporary contiguous
 	// copy of the matrix rather than the original matrix.
 	bl1_dcreate_contigm( m,
 	                     n,
 	                     a_save, a_rs_save, a_cs_save,
 	                     &a,     &a_rs,     &a_cs );
+#endif
 
 	// Initialize with values assuming column-major storage.
 	lda  = a_cs;
@@ -116,10 +120,11 @@ void bl1_dgemv( trans1_t transa, conj1_t conjx, int m, int n, double* alpha, dou
 	                x, incx,
 	                beta,
 	                y, incy );
-
+#ifndef AMD_MEM_OPT
 	// Free the temporary contiguous matrix.
 	bl1_dfree_contigm( a_save, a_rs_save, a_cs_save,
 	                   &a,     &a_rs,     &a_cs );
+#endif
 }
 
 void bl1_cgemv( trans1_t transa, conj1_t conjx, int m, int n, scomplex* alpha, scomplex* a, int a_rs, int a_cs, scomplex* x, int incx, scomplex* beta, scomplex* y, int incy )

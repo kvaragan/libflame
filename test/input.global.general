@@ -4,8 +4,8 @@ s           Datatype(s) to test
 40             Algorithmic blocksize for blocked algorithms
 10             Algorithmic blocksize for algorithms-by-blocks
 40             Storage blocksize for algorithms-by-blocks
-160            Problem size: first to test
+160             Problem size: first to test
 1600            Problem size: maximum to test
 160             Problem size: increment between experiments
-0              Number of SuperMatrix threads (0 = disable SuperMatrix in FLASH front-ends)
+2              Number of SuperMatrix threads (0 = disable SuperMatrix in FLASH front-ends)
 i              Reaction to test failure ('i' = ignore; 's' = sleep() and continue; 'a' = abort)

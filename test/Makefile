@@ -32,10 +32,10 @@ CONFIG_MK_FRAGMENT  := $(CONFIG_DIRPATH)/$(HOST)/config.mk
 
 # Uncomment and modify these definitions if you wish to override the values
 # present in the master config makefile fragment.
-# CC             := gcc
+CC             := icc
 # LINKER         := $(CC)
-#CFLAGS         := -g -O0 -Wall -Wno-comment
-LDFLAGS          := -lm -pg
+# CFLAGS         := -g -O2 -Wall -Wno-comment
+LDFLAGS        := -lm -lirc
 # INSTALL_PREFIX := $(HOME)/flame
 
 
@@ -48,18 +48,16 @@ LDFLAGS          := -lm -pg
 # the libflame test suite. Modify these definitions if needed.
 LIBBLAS_PATH   := $(INSTALL_PREFIX)/lib
 #LIBBLAS        := $(LIBBLAS_PATH)/libblas.a
-#LIBBLAS        := $(LIBBLAS_PATH)/libgoto.a
-#LIBBLAS        := $(HOME)/blis/lib/libblis.a
-#LIBBLAS       := $(HOME)/libs/blistrsmpubRepoTrsmOpt/lib/libblis.a # with TRSM only opt
-LIBBLAS       := $(HOME)/libs/blistrsmMacroOpt/lib/libblis.a
-
+#LIBBLAS        := $(LIBBLAS_PATH)/libopenblas.a
+LIBBLAS        := $/home/amd/blis/lib/libblis.a
 
 # LAPACK implementation path. These values only matter if libflame was
 # configured with the external-lapack-interfaces option enabled. Modify
 # these definitions if needed.
 LIBLAPACK_PATH := $(INSTALL_PREFIX)/lib
 #LIBLAPACK      := $(LIBLAPACK_PATH)/liblapack.a
-#LIBLAPACK      := 
+LIBLAPACK       := 
+
 
 
 #
@@ -73,7 +71,7 @@ FLA_LIB_PATH   := $(INSTALL_PREFIX)/lib
 FLA_INC_PATH   := $(INSTALL_PREFIX)/include
 LIBFLAME       := $(FLA_LIB_PATH)/libflame.a
 
-CFLAGS         += -I$(FLA_INC_PATH) -I$(TEST_SRC_PATH) #-DAMD_ONLY_PERFORMANCE
+CFLAGS         += -I$(FLA_INC_PATH) -I$(TEST_SRC_PATH)
 
 FNAME          := libflame
 

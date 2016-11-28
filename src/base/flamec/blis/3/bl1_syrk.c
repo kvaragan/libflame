@@ -25,7 +25,7 @@ void bl1_ssyrk( uplo1_t uplo, trans1_t trans, int m, int k, float* alpha, float*
 
 	// Return early if possible.
 	if ( bl1_zero_dim2( m, k ) ) return;
-
+#ifndef AMD_MEM_OPT
 	// If necessary, allocate, initialize, and use a temporary contiguous
 	// copy of each matrix rather than the original matrices.
 	bl1_screate_contigmt( trans,
@@ -39,7 +39,7 @@ void bl1_ssyrk( uplo1_t uplo, trans1_t trans, int m, int k, float* alpha, float*
 	                      m,
 	                      c_save, c_rs_save, c_cs_save,
 	                      &c,     &c_rs,     &c_cs );
-
+#endif
 	// Initialize with values assuming column-major storage.
 	lda  = a_cs;
 	inca = a_rs;
@@ -93,7 +93,7 @@ void bl1_ssyrk( uplo1_t uplo, trans1_t trans, int m, int k, float* alpha, float*
 	                a, lda,
 	                beta,
 	                c, ldc );
-
+#ifndef AMD_MEM_OPT
 	// Free any temporary contiguous matrices, copying the result back to
 	// the original matrix.
 	bl1_sfree_contigm( a_save, a_rs_save, a_cs_save,
@@ -104,6 +104,7 @@ void bl1_ssyrk( uplo1_t uplo, trans1_t trans, int m, int k, float* alpha, float*
 	                          m_save,
 	                          c_save, c_rs_save, c_cs_save,
 	                          &c,     &c_rs,     &c_cs );
+#endif
 }
 
 void bl1_dsyrk( uplo1_t uplo, trans1_t trans, int m, int k, double* alpha, double* a, int a_rs, int a_cs, double* beta, double* c, int c_rs, int c_cs )
@@ -122,6 +123,7 @@ void bl1_dsyrk( uplo1_t uplo, trans1_t trans, int m, int k, double* alpha, doubl
 	// Return early if possible.
 	if ( bl1_zero_dim2( m, k ) ) return;
 
+#ifndef AMD_MEM_OPT
 	// If necessary, allocate, initialize, and use a temporary contiguous
 	// copy of each matrix rather than the original matrices.
 	bl1_dcreate_contigmt( trans,
@@ -135,7 +137,7 @@ void bl1_dsyrk( uplo1_t uplo, trans1_t trans, int m, int k, double* alpha, doubl
 	                      m,
 	                      c_save, c_rs_save, c_cs_save,
 	                      &c,     &c_rs,     &c_cs );
-
+#endif
 	// Initialize with values assuming column-major storage.
 	lda  = a_cs;
 	inca = a_rs;
@@ -189,7 +191,7 @@ void bl1_dsyrk( uplo1_t uplo, trans1_t trans, int m, int k, double* alpha, doubl
 	                a, lda,
 	                beta,
 	                c, ldc );
-
+#ifndef AMD_MEM_OPT
 	// Free any temporary contiguous matrices, copying the result back to
 	// the original matrix.
 	bl1_dfree_contigm( a_save, a_rs_save, a_cs_save,
@@ -200,6 +202,7 @@ void bl1_dsyrk( uplo1_t uplo, trans1_t trans, int m, int k, double* alpha, doubl
 	                          m_save,
 	                          c_save, c_rs_save, c_cs_save,
 	                          &c,     &c_rs,     &c_cs );
+#endif
 }
 
 void bl1_csyrk( uplo1_t uplo, trans1_t trans, int m, int k, scomplex* alpha, scomplex* a, int a_rs, int a_cs, scomplex* beta, scomplex* c, int c_rs, int c_cs )
