@@ -13,6 +13,10 @@
 extern fla_herk_t* fla_herk_cntl_blas;
 extern fla_trsm_t* fla_trsm_cntl_blas;
 
+#ifdef FLA_AMD_OPT
+fla_chol_t*        fla_chol_cntl_amd = NULL;
+#endif
+
 fla_chol_t*        fla_chol_cntl = NULL;
 fla_chol_t*        fla_chol_cntl2 = NULL;
 
@@ -68,7 +72,18 @@ void FLA_Chol_cntl_init()
 	                                                 fla_herk_cntl_blas,
 	                                                 fla_trsm_cntl_blas,
 	                                                 NULL );
-}
+#ifdef FLA_AMD_OPT
+      
+       fla_chol_cntl_amd  = FLA_Cntl_chol_obj_create( FLA_FLAT,
+	                                              FLA_UNBLOCKED_VARIANT_SMALL, 
+	                                              fla_chol_var3_bsize,
+	                                              NULL,
+	                                              NULL,
+	                                              NULL,
+	                                              NULL );
+#endif
+
+}// End of function
 
 void FLA_Chol_cntl_finalize()
 {
@@ -76,6 +91,9 @@ void FLA_Chol_cntl_finalize()
 	FLA_Cntl_obj_free( fla_chol_cntl2 );
 	FLA_Cntl_obj_free( fla_chol_cntl_leaf );
 	FLA_Cntl_obj_free( fla_chol_cntl_in );
+#ifdef FLA_AMD_OPT
+	FLA_Cntl_obj_free( fla_chol_cntl_amd );
+#endif
 
 	FLA_Blocksize_free( fla_chol_var3_bsize );
 	FLA_Blocksize_free( fla_chol_var3_bsize_in );

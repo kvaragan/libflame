@@ -11,7 +11,7 @@
 #include "FLAME.h"
 #include "test_libflame.h"
 
-#define NUM_PARAM_COMBOS 2
+#define NUM_PARAM_COMBOS 1 //2 // AMD: Changed this value to test only lower triangular for Cholesky
 #define NUM_MATRIX_ARGS  1
 #define FIRST_VARIANT    1
 #define LAST_VARIANT     3
@@ -23,7 +23,7 @@ static char* fla_front_str            = "FLA_Chol";
 static char* fla_unb_var_str          = "unb_var";
 static char* fla_opt_var_str          = "opt_var";
 static char* fla_blk_var_str          = "blk_var";
-static char* pc_str[NUM_PARAM_COMBOS] = { "l", "u" };
+static char* pc_str[NUM_PARAM_COMBOS] = {"l"}; //{ "l", "u" }; // AMD:
 static test_thresh_t thresh           = { 1e-02, 1e-03,   // warn, pass for s
                                           1e-11, 1e-12,   // warn, pass for d
                                           1e-02, 1e-03,   // warn, pass for c

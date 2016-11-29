@@ -34,7 +34,7 @@ CONFIG_MK_FRAGMENT  := $(CONFIG_DIRPATH)/$(HOST)/config.mk
 # present in the master config makefile fragment.
 CC             := icc
 # LINKER         := $(CC)
-# CFLAGS         := -g -O2 -Wall -Wno-comment
+#CFLAGS         := -g -O2 -Wall -Wno-comment
 LDFLAGS        := -lm -lirc
 # INSTALL_PREFIX := $(HOME)/flame
 
@@ -49,7 +49,7 @@ LDFLAGS        := -lm -lirc
 LIBBLAS_PATH   := $(INSTALL_PREFIX)/lib
 #LIBBLAS        := $(LIBBLAS_PATH)/libblas.a
 #LIBBLAS        := $(LIBBLAS_PATH)/libopenblas.a
-LIBBLAS        := $/home/amd/blis/lib/libblis.a
+LIBBLAS        :=  /home/amd/blis/lib/libblis.a
 
 # LAPACK implementation path. These values only matter if libflame was
 # configured with the external-lapack-interfaces option enabled. Modify
