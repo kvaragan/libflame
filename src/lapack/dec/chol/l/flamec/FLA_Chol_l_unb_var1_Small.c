@@ -96,23 +96,30 @@ FLA_Error FLA_Chol_l_unb_var1_Small_ops( int mn_A,
   for (i = 0; i < mn_A; i++)
     {
       aii = A + (i * rs_A) + (i * cs_A);
+      float tmp = *aii;
       for (k = 0; k < i; k++)
 	{
-	  *aii -= A[k*cs_A + i * rs_A] * A[k*cs_A + i * rs_A];
+	  //*aii -= A[k*cs_A + i * rs_A] * A[k*cs_A + i * rs_A];
+	  tmp -= A[k*cs_A + i * rs_A] * A[k*cs_A + i * rs_A];
 	}
       //	if (*aii <= 0 ) { r_val = FLA_FAILURE; break;} // A is not +ve definite
-      bl1_ssqrte( aii, &r_val );
+      // bl1_ssqrte( aii, &r_val );
+
+      bl1_ssqrte( &tmp, &r_val );
       if ( r_val != FLA_SUCCESS ) return mn_A;
 
       for (j = i+1; j < mn_A; j++)
 	{
 	  aji = A + i*cs_A + j*rs_A;
+	  float t2 = *aji;
 	  for (k = 0; k < i; k++)
 	    {
-	      *aji -= A[k*cs_A + i * rs_A] * A[k * cs_A + j * rs_A];
+	      //*aji -= A[k*cs_A + i * rs_A] * A[k * cs_A + j * rs_A];
+	      t2 -= A[k*cs_A + i * rs_A] * A[k * cs_A + j * rs_A];
 	    }
-	  (*aji) = *aji/(*aii) ;
+	  (*aji) = t2/tmp; //(*aii) ;
 	}
+      *aii = tmp;
     }
   return r_val;
 }// End of function
